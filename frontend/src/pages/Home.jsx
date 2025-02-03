@@ -46,7 +46,7 @@ const Home = () => {
               <Link to={`/show/${item._id}`}>
               <FcViewDetails  />
               </Link>
-            <Link  to={`/update/${item._id}`}><MdTipsAndUpdates /></Link>
+            <Link state={{item}}  to={`/update/${item._id}`}><MdTipsAndUpdates /></Link>
             
             <MdOutlineAutoDelete />
             </div>

@@ -36,11 +36,11 @@ router.get('/post',async (req,res)=>{
   })
   
  })
- router.get('/updateById',(req,res)=>{
+ router.post('/updateById',(req,res)=>{
 
   user.updateOne(
     { author: 'harsha' },       // Filter criteria
-    { $set: { title: "title" } }    // Update operation: only updating 'title'
+    { $set: data }    // Update operation: only updating 'title'
   ).then((result)=>{
     console.log('then',result)
     res.json({
