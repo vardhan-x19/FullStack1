@@ -1,7 +1,7 @@
 import express from "express";
 const router=express.Router();
 import { user } from "../config/schema.js";
-
+import { ObjectId } from 'mongodb';
 router.get('/post',async (req,res)=>{
   const userData =await user.create({
      title:'let me tell you something',
@@ -18,11 +18,13 @@ router.get('/post',async (req,res)=>{
    })
    res.send(userData)
  })
- router.get('/getOne',async (req,res)=>{
-   const oneData=await user.findOne({author:'harsha'});
+ router.get('/getOne/:id',async (req,res)=>{
+   const {id}=req.params;
+   console.log('the id of the data item',id)
+   const oneData=await user.findOne({_id: new ObjectId(id)});
    console.log(oneData)
-   const findData=await user.findOne({_id:new ObjectId(oneData._id)})
-   res.json(findData)
+  //  const findData=await user.findOne({_id:new ObjectId(oneData._id)})
+   res.json(oneData)
    
  })
  router.get('/delete', (req,res)=>{
