@@ -3,6 +3,7 @@ const router=express.Router();
 import { user } from "../config/schema.js";
 import { ObjectId } from 'mongodb';
 router.get('/post',async (req,res)=>{
+  
   const userData =await user.create({
      title:'let me tell you something',
      author:'harsha',
@@ -27,9 +28,10 @@ router.get('/post',async (req,res)=>{
    res.json(oneData)
    
  })
- router.get('/delete', (req,res)=>{
-  user.deleteOne({author:'harsha'}).then((result)=>{
-    res.send('deleted')
+ router.post('/delete/:id', (req,res)=>{
+  const id=req.params;
+  user.deleteOne({_id: new ObjectId(id)}).then((result)=>{
+    res.redirect('/')
   }).catch((err)=>{
     console.log('the error while deleting the data',err)
     res.send('not deleted ')
@@ -37,15 +39,15 @@ router.get('/post',async (req,res)=>{
   
  })
  router.post('/updateById',(req,res)=>{
-
+  const data =req.body;
+  console.log(data);
+  const {author,title,publishYear}=data;
   user.updateOne(
-    { author: 'harsha' },       // Filter criteria
-    { $set: data }    // Update operation: only updating 'title'
+    { _id: data._id },       // Filter criteria
+    { $set: {author:author,title:title,publishYear:publishYear} }    // Update operation: only updating 'title'
   ).then((result)=>{
     console.log('then',result)
-    res.json({
-      message:"update one"
-    })
+    res.redirect('/');
   }).catch((err)=>{
     res.json({
       message:"not updated"

@@ -9,13 +9,13 @@ const ShowBook = () => {
   const {id}=useParams();
   useEffect(() => {
    axios.get(`http://localhost:5555/getOne/${id}`).then((result)=>{
-    console.log("result",result.data)
+    // console.log("result",result.data)
     setItem(result.data)
    })
   }, [])
   
   return (
-    <div className='w-[50%] relative rounded-lg flex justify-start flex-col gap-3 h-full p-5 ml-5 mt-48 border '>
+    <div className='w-[50%] relative rounded-lg flex justify-start flex-col gap-3 h-full p-5 ml-5 mt-16 border '>
        <Link to={'/'} className='absolute left-5 top-5'><IoChevronBackCircle /></Link>
       <h1 className='text-center font-bold'>BOOK Details</h1>
       <h2>Author : <span className='font-bold ml-3'>{item.author}</span>

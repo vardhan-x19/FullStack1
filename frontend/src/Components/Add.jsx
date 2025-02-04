@@ -1,39 +1,12 @@
-import React, { useState,useEffect } from 'react'
-import { useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import BackButton from '../Components/BackButton';
+import React from 'react'
 import { IoChevronBackCircle } from "react-icons/io5";
-const EditBook = () => {
-  const navigate=useNavigate();
-  const location = useLocation(); 
-  const {item} = location.state;
-  const [author, setAuthor] = useState('');
-  const [title, setTitle] = useState('');
-  const [year, setYear] = useState('');
-  useEffect(() => {
-    setAuthor(item.author)
-    setTitle(item.title)
-    setYear(item.publishYear)
-    // console.log('useEfeect',item)
-  }, [])
-  const editOPtion=()=>{
-    const data={
-      _id: item._id, 
-      author:author,
-      title:title,
-      publishYear:year
-    }
-    console.log('data in frontend',data)
-    axios.post(`http://localhost:5555/updateById`,data).then((result)=>{
-      // console.log(result)
-      navigate('/');
-    }).catch((err)=>{
-      console.log(err);
-      navigate('/err')
-    })
-  }
+const Add = () => {
+
+    const [author, setAuthor] = useState('');
+    const [title, setTitle] = useState('');
+    const [year, setYear] = useState('');
+
+
   return (
     <div className='w-[60%] relative mt-8 ml-10 h-full border p-16 mb-8  flex flex-col gap-5'>
      <Link to={'/'} className='absolute left-5 top-5'><IoChevronBackCircle /></Link>
@@ -72,4 +45,4 @@ const EditBook = () => {
   )
 }
 
-export default EditBook
+export default Add
